@@ -2,7 +2,7 @@
 
 ## Problem Statement
 
-This dashboard helps stakeholders understand their customers better. It helps the company know what their top/bottom 5 products are by sales, profit and quantity. It shows how sales trends vary overtime, relationships between sales and profit.
+This dashboard helps stakeholders understand their sales better. It helps the company know what their top/bottom 5 products are by sales, profit and quantity. It shows how sales trends vary overtime, relationships between sales and profit.
 The dashboard also lets stakeholders compare sales, profit and quantity sold between two periods selected by them.
 Additionally, it shows average dicounts offered in each category, and sales by different cities.
 Sales, profit, discount, net sales and other remaining fields can also be filtered using visual filters to discover insights.
