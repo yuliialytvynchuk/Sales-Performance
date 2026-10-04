@@ -11,12 +11,12 @@ Sales, profit, discount, net sales and other remaining fields can also be filter
 
 ### Data ptofiling and Transformation
 
-- Step 1 : Load data into Power BI Desktop, the dataset is a xlsx file.
-- Step 2 : Open power query editor and in view tab under Data preview section, check "Column distribution", "Column quality" and "Column profile" options for 4 tables present in the Dataset.
-- Step 3 : Also since by default, tables will be opened only for 1000 rows so you need to select "Column profiling based on entire dataset".
+- Step 1: Loaded data into Power BI Desktop, the dataset is a xlsx file.
+- Step 2: Opened power query editor and in view tab under Data preview section, checked "Column distribution", "Column quality" and "Column profile" options for 4 tables present in the Dataset.
+- Step 3: Also since by default, tables would be opened only for 1000 rows, "Column profiling based on entire dataset" was selected for each table.
 - Step 4: In the column "Price Reduction Type" description of the dicount was present instead of the percentages. For this purpose a new conditional "Percentage" columnn was added to represent a dicount in percentages.
-- Step 5 : In the "Fact Table" the data type was changed to text for "CustomerID", "PromotionID" columns as you do not need it as numerical.
-- Step 6. In the "Fact Table" several columns had 100% empty values. For the "Price per Unit" column a left join was performed with a "Dim Product" table that had "Price per Unit", using "Product ID" to connect them. A new column was renamed to "Price per Unit" and the old one was dropped.
+- Step 5: In the "Fact Table" the data type was changed to text for "CustomerID", "PromotionID" columns as you do not need it as numerical.
+- Step 6: In the "Fact Table" several columns had 100% empty values. For the "Price per Unit" column a left join was performed with a "Dim Product" table that had "Price per Unit", using "Product ID" to connect them. A new column was renamed to "Price per Unit" and the old one was dropped.
 - Step 7: "Total Sales" also had 100% empty values, so a new custom column "Total Sales New" was created by multiplying "Unit Sold" and "Price per Unit" columns. The data type was changed to whole numbers. Old column was dropped.
 - Step 8: "Discount Percentage" column in "Fact Table" was 100% empty, so left join was performed with "Dim Promotion" table. Null values were replaced by 0 representing 0 discount. Old column was dropped.
 - Step 9: "Dicount Value" column was also empty, so a new custom column "Discount Value New" was created where values from "Total Sales" column were multiplied by "Discount Percentage" and divided by 100. The data type was changed to decimal. Old column was dropped.
@@ -31,6 +31,7 @@ Question 1: Top/Bottom 5 product by Sales/Profit/Quantity Sold.
 - Step 12: Bar chart was used to represent top and bottom sales. Each bar chart was filtered by either top or bottom 5 N.
 
 <img width="602" height="325" alt="Top-Bottom 5" src="https://github.com/user-attachments/assets/944acebc-1ab3-4dde-95a6-cb2654b07937" />
+
 
 Question 2: How do sales trends vary over time (daily, monthly, querterly, annually)?
 
@@ -47,6 +48,7 @@ Question 3: Relationship between sales and profit.
 - Step 16: Scatter plot with "Profit" and "Net Sales New" was created. No columns were summarised.There is linear relationship between Profit and Sales. The density though becomes smaller when numbers increase.
 
 <img width="575" height="310" alt="Profit vs Sales" src="https://github.com/user-attachments/assets/8b9cc245-a96e-4a51-90f4-15045c31271c" />
+
 
 Question 4: Compare sales/profit/quantity between any two periods selected by the user.
 
@@ -65,12 +67,14 @@ Question 5: Average discount offered in each category.
 
 <img width="575" height="235" alt="Discount" src="https://github.com/user-attachments/assets/5c8905ec-f1f5-42f3-9ed3-d228198092dd" />
 
+
 Question 6: What is total number of orders.
 
 - Step 23: In the "Fact Table" the Index column was added starting from 1 and renamed to "Order ID", and data typed was changd to text. It will be used to identify the number of sales.
 - Step 24: Card visual was selected together with "Order ID" column where distinct columns were counted.
 
 <img width="64" height="47" alt="Orders" src="https://github.com/user-attachments/assets/c83ce956-bf53-4803-bdab-1b7299357472" />
+
 
 Question 7: Show Sales/Profit/Discount/Net Sales/All remaining fields for each order that could be filtered using visual filters.
 
@@ -80,6 +84,7 @@ Question 7: Show Sales/Profit/Discount/Net Sales/All remaining fields for each o
 
 <img width="600" height="337" alt="Slicer 1" src="https://github.com/user-attachments/assets/d4bc50d8-3074-44ee-b878-288735673973" />
 <img width="593" height="328" alt="Slicer2" src="https://github.com/user-attachments/assets/1de42a22-ab02-475b-9533-c88b0d21eb30" />
+
 
 Question 8: Show sales by different cities.
 
