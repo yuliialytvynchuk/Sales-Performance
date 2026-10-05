@@ -33,7 +33,7 @@ Now the dataset is clean and reayd to be used for visualisation and getting insi
 
 <img width="602" height="325" alt="Top-Bottom 5" src="https://github.com/user-attachments/assets/944acebc-1ab3-4dde-95a6-cb2654b07937" />
 
-Insight: there are items that bring the highest profit and sell the best, while others do not sell or bring the lowest profit out of all items. This data can be used to reevaluate the items available for sale.
+Insights: there are items that bring the highest profit and sell the best, while others do not sell or bring the lowest profit out of all items. This data can be used to reevaluate the items available for sale.
 
 
 #### Question 2: How do sales trends vary over time (daily, monthly, querterly, annually)?
@@ -67,7 +67,7 @@ Insights: There is linear relationship between Profit and Sales. The density tho
 
 <img width="601" height="319" alt="Two slicers" src="https://github.com/user-attachments/assets/c0559d79-168e-476b-b15a-ec1c5a5e1990" />
 
-Insights: the visualisation enambles the user (the stakeholder) to compare different periods with each other and see the relationship between sales, quantity, and profit for those periods at the same time.
+Insights: the visualisation enables the user (the stakeholder) to compare different periods with each other and see the relationship between sales, quantity, and profit for those periods at the same time.
 
 
 #### Question 5: Average discount offered in each category.
