@@ -1,110 +1,123 @@
-# Sales-Dashboard
+# Sales Performance Dashboard | Power BI
 
-## Problem Statement
+## Project Overview
 
-This dashboard helps stakeholders understand their sales better. It helps the company know what their top/bottom 5 products are by sales, profit and quantity. It shows how sales trends vary overtime, relationships between sales and profit.
-The dashboard also lets stakeholders compare sales, profit and quantity sold between two periods selected by them.
-Additionally, it shows average dicounts offered in each category, and sales by different cities.
-Sales, profit, discount, net sales and other remaining fields can also be filtered using visual filters to discover insights.
+This project explores sales performance using an interactive Power BI dashboard. The goal is to help stakeholders understand sales trends, evaluate product performance, compare business performance across different periods, and explore sales across customer locations.
+The dashboard analyses sales, profit, quantity sold, discounts, and net sales. Interactive filters and visualisations allow users to explore the data from different perspectives.
+
+## Business Questions:
+
+1. Which five products perform best and worst in terms of sales, profit, and quantity sold?
+2. How do sales trends change over time (daily, monthly, quarterly, and annually)?
+3. What is the relationship between net sales and profit?
+4. How do sales, profit, and quantity sold compare between two selected periods?
+5. What is the average discount across different product categories?
+6. How many transaction records are included in the dataset?
+7. How can users filter and explore detailed sales information by date, customer, product, and promotion?
+8. How does sales performance vary across cities?
 
 ## Steps followed:
 
 ### Data ptofiling and Transformation
 
-- Step 1: Loaded data into Power BI Desktop, the dataset is a xlsx file.
-- Step 2: Opened power query editor and in view tab under Data preview section, checked "Column distribution", "Column quality" and "Column profile" options for 4 tables present in the Dataset to see detailed overview of each column.
-- Step 3: Since by default tables would be opened only for 1000 rows, "Column profiling based on entire dataset" was selected for each table.
-- Step 4: In the column "Price Reduction Type" description of the dicount was present instead of the percentages. For this purpose a new conditional "Percentage" columnn was added to represent a dicount in percentages.
-- Step 5: In the "Fact Table" the data type was changed to text for "CustomerID", "PromotionID" columns as this data is not needed numerically.
-- Step 6: In the "Fact Table" several columns had 100% empty values. For the "Price per Unit" column a left join was performed with a "Dim Product" table that had "Price per Unit", using "Product ID" to connect them. Now the new table is populated, it is renamed to "Price per Unit" and the old one iis dropped.
-- Step 7: "Total Sales" also had 100% empty values, so a new custom column "Total Sales New" was created by multiplying "Unit Sold" and "Price per Unit" columns. The data type was changed to whole numbers. Old column was dropped.
-- Step 8: "Discount Percentage" column in "Fact Table" was 100% empty, so left join was performed with "Dim Promotion" table. Null values were replaced by 0 representing no discount, and to enable calculations in future. Old column was dropped.
-- Step 9: "Dicount Value" column was also empty, so a new custom column "Discount Value New" was created where values from "Total Sales" column were multiplied by "Discount Percentage" and divided by 100. The data type was changed to decimal. Old column was dropped.
-- Step 10: The column "Net Sales" was empty, so a new custom column was created where "Discount Value New" was deducted from "Total Sales". Old column was dropped.
-- Step 11: Star Schema was performed in Data modelling where "One to many "relationships between tables were established from "Dim Product", "Dim Customers" and "Dim Promotion" to "Fact Table".
+- Step 1: Loaded the dataset, provided as an Excel (.xlsx) file, into Power BI Desktop.
+- Step 2: Opened Power Query Editor and, under the View tab in the Data Preview section, enabled Column Distribution, Column Quality, and Column Profile for all four tables in the dataset to examine the quality and distribution of the data.
+- Step 3: By default, column profiling is based on the first 1,000 rows. To analyse the complete dataset, selected Column profiling based on entire dataset for each table.
+- Step 4: In the Price Reduction Type column, descriptions of discounts were provided instead of numerical percentages. To address this, created a conditional column named Percentage to represent each discount as a percentage.
+- Step 5: In the Fact Table, changed the data types of the CustomerID and PromotionID columns to text because these columns contain identifiers rather than values intended for numerical calculations.
+- Step 6: Several columns in the Fact Table contained 100% empty values. To populate Price per Unit, performed a left outer join with the Dim Product table, which contained the required information. Used Product ID as the matching column, expanded the resulting column, and renamed it to Price per Unit. Removed the original empty column.
+- Step 7: The Total Sales column also contained 100% empty values. Created a custom column named Total Sales New by multiplying Units Sold by Price per Unit. Changed its data type to a whole number and removed the original empty column.
+- Step 8: The Discount Percentage column in the Fact Table was 100% empty. Performed a left outer join with the Dim Promotion table to retrieve the discount percentages. Replaced null values with 0, representing transactions with no recorded discount, and removed the original empty column.
+- Step 9: The Discount Value column was also empty. Created a custom column named Discount Value New by multiplying Total Sales New by Discount Percentage and dividing the result by 100. Changed the data type to decimal and removed the original empty column.
+- Step 10: The Net Sales column was empty. Created a custom column by subtracting Discount Value New from Total Sales New and removed the original empty column.
+- Step 11: Established a star schema in the Data Model view by creating one-to-many relationships from Dim Product, Dim Customers, and Dim Promotion to the Fact Table.
 
-Now the dataset is clean and reayd to be used for visualisation and getting insights.
+The dataset was now prepared for visualisation and further analysis.
 
 ### Visualisation
 
-#### Question 1: Top/Bottom 5 product by Sales/Profit/Quantity Sold.
+#### Question 1: Which are the top and bottom five products by sales, profit, and quantity sold?
 
-- Step 12: Bar chart was used to represent top and bottom sales. Each bar chart was filtered by either top or bottom 5 N.
+- Step 12: Created bar charts to display the top and bottom five products. Applied Top N and Bottom N filters to identify the products with the highest and lowest values for the selected metrics.
 
 <img width="602" height="325" alt="Top-Bottom 5" src="https://github.com/user-attachments/assets/944acebc-1ab3-4dde-95a6-cb2654b07937" />
 
-Insights: there are items that bring the highest profit and sell the best, while others do not sell or bring the lowest profit out of all items. This data can be used to reevaluate the items available for sale.
+Insights: The charts highlight differences in product performance across sales, profit, and quantity sold. Products that perform well can be identified alongside those with weaker results. This information can support decisions about product range, inventory management, and future sales strategies. However, low sales or profit alone may not be sufficient reason to discontinue a product; costs, demand, and strategic importance should also be considered.
 
 
 #### Question 2: How do sales trends vary over time (daily, monthly, querterly, annually)?
 
-- Step 13: Line chart was used with "Net sales" and "Date" columns.
-- Step 14: Drill up function on the visual was used to show the visualisation for years. Going to the next level in the hierarchy changed the visualisation to querters, months and days.
-- Step 15: Drill down function enabled checking a perticular year, month, or day.
+- Step 13: Created a line chart using the Date and Net Sales New columns to visualise changes in net sales over time.
+- Step 14: Used the drill-up function to view sales at the yearly level. Moving down the date hierarchy allowed the visualisation to display quarterly, monthly, and daily sales.
+- Step 15: Used the drill-down function to investigate sales within a particular year, quarter, month, or day.
 
 <img width="560" height="301" alt="Years" src="https://github.com/user-attachments/assets/8d19f1dc-df56-4d3b-aeb8-c096927a39d1" />
 <img width="560" height="298" alt="Year 2023 Drill down" src="https://github.com/user-attachments/assets/23f03199-910c-472b-b47a-ea5e9a5a228e" />
 
-Insights: each year the second quarter has the least sales while the fourth quarter the most. The last could match Christmas orders.
+Insights: The visualisation indicates that the second quarter has the lowest sales and the fourth quarter has the highest sales in each year shown. The increase in Q4 could be associated with seasonal demand and Christmas shopping. However, this is a possible explanation rather than a confirmed cause. Further analysis of monthly sales and product categories could help determine which periods and products contribute most to this pattern.
 
 
-#### Question 3: Relationship between sales and profit.
+#### Question 3: What is the relationship between sales and profit?
 
-- Step 16: Scatter plot with "Profit" and "Net Sales New" was created. No columns were summarised.
+- Step 16: Created a scatter plot using Profit and Net Sales New, with both fields set to Don't summarise so that individual records could be examined.
 
 <img width="575" height="310" alt="Profit vs Sales" src="https://github.com/user-attachments/assets/8b9cc245-a96e-4a51-90f4-15045c31271c" />
 
-Insights: There is linear relationship between Profit and Sales. The density though becomes smaller when numbers increase, meaning there are less sales when the price increases, though the profit with such sales increases too.
+Insights: The scatter plot suggests a positive relationship between net sales and profit: transactions with higher sales values generally tend to have higher profits. However, the points are more dispersed at higher values, and there are fewer observations in the higher-sales range. This may indicate that high-value transactions are less common. Further analysis would be needed to determine how factors such as discounts, product type, and costs influence profit margins.
 
 
-#### Question 4: Compare sales/profit/quantity between any two periods selected by the user.
+#### Question 4: How can sales, profit, and quantity sold be compared between any two periods selected by the user?
 
-- Step 17: Two slicers were created with "Date" column.
-- Step 18: Two seperate bar charts were created per each column ("Net Sales", "Profit", ""Units Sold").
-- Step 19: The first slicer was formatted - edit interactions - and three bar charts were disabled to interact with it.
-- Step 20: The same was performed for the second slicer.
-- Step 21: Such edit enables three bar charts to interact only with the first slicer when the date is changed, while other three bar charts only will interact when the date in the second slicer is changd.
+- Step 17: Created two date slicers using the Date column, allowing the user to select two separate periods.
+- Step 18: Created two sets of three bar charts to display Net Sales New, Profit, and Units Sold for each selected period.
+- Step 19: Used Edit interactions to disable the first date slicer's interaction with the three charts intended for the second period.
+- Step 20: Applied the same approach to the second date slicer, disabling its interaction with the three charts intended for the first period.
+- Step 21: Configured the interactions so that each date slicer controls only its corresponding set of three charts. This allows the two periods to be compared independently.
 
 <img width="601" height="319" alt="Two slicers" src="https://github.com/user-attachments/assets/c0559d79-168e-476b-b15a-ec1c5a5e1990" />
 
-Insights: the visualisation enables the user (the stakeholder) to compare different periods with each other and see the relationship between sales, quantity, and profit for those periods at the same time.
+Insights: This interactive view enables stakeholders to compare two selected periods side by side. They can examine changes in net sales, profit, and units sold simultaneously, helping identify whether changes in revenue are accompanied by changes in sales volume and profitability. This can be useful for evaluating seasonal performance or comparing results before and after a particular business event.
 
 
-#### Question 5: Average discount offered in each category.
+#### Question 5: What is the average discount offered for each promotion?
 
-- Step 22: Bar chart was used with average "Discount" and "Promotion Name".
+- Step 22: Created a bar chart using the average discount percentage and Promotion Name to compare the discount levels associated with different promotions.
 
 <img width="575" height="235" alt="Discount" src="https://github.com/user-attachments/assets/5c8905ec-f1f5-42f3-9ed3-d228198092dd" />
 
-Insights: this visual enambles to identify the most and least frequently used discounts.
+Insights: The visualisation allows the user to identify promotions associated with the highest and lowest average discount percentages. This can support the evaluation of discount strategies.
 
 
 #### Question 6: What is total number of orders?
 
-- Step 23: In the "Fact Table" the Index column was added starting from 1 and renamed to "Order ID", and data typed was changd to text. It will be used to identify the number of sales.
-- Step 24: Card visual was selected together with "Order ID" column where distinct columns were counted.
+- Step 23: Added an index column to the Fact Table, starting from 1, and renamed it Order ID. Changed its data type to text so that it would be treated as an identifier.
+- Step 24: Created a card visual using Order ID and configured the aggregation to count distinct values, displaying the number of unique order IDs in the dataset.
 
 <img width="64" height="47" alt="Orders" src="https://github.com/user-attachments/assets/c83ce956-bf53-4803-bdab-1b7299357472" />
 
-Insights: this card clearly represent the amount of orders based on the dataset.
+Insights: The card provides a quick overview of the number of distinct IDs assigned to the records in the dataset. This metric can help stakeholders understand the scale of the data being analysed.
 
 
-#### Question 7: Show Sales/Profit/Discount/Net Sales/All remaining fields for each order that could be filtered using visual filters.
+#### Question 7: How can sales, profit, discounts, net sales, and other order-level fields be explored using filters?
 
-- Step 25: A table visual was selected together with all columns from "Fact Table". All columns are not summarised.
-- Step 26: Four slicers were added to the report together with the "Date", "Customer Name", " Product Name" and "Promotion Name" to filter the table.
-- Step 27: Since the "Fact Table" cannot filter dimension tables and effect slicers, a new measure Sum Dim = SUM('Fact Table'[Net Sales New]) was added to the filter of each slicer (when the value is not blank).
+- Step 25: Created a table visual containing the relevant columns from the Fact Table. Configured the fields not to be summarised so that the table could display record-level information.
+- Step 26: Added four slicers to the report using Date, Customer Name, Product Name, and Promotion Name to filter the table.
+- Step 27: Since the slicers use fields from dimension tables and the filtering behaviour required additional configuration, created a measure named Sum Dim:
+```sql
+Sum Dim = SUM('Fact Table'[Net Sales New])
+```
+Added this measure to the visual-level filters for the relevant slicers, configuring the filter to exclude blank values.
 
 <img width="600" height="337" alt="Slicer 1" src="https://github.com/user-attachments/assets/d4bc50d8-3074-44ee-b878-288735673973" />
 <img width="593" height="328" alt="Slicer2" src="https://github.com/user-attachments/assets/1de42a22-ab02-475b-9533-c88b0d21eb30" />
 
-Insights: editing the slicers enabled filtering not only through the Fact Table, but also through dimension tables. Now the remaining slicers also show filtered data if at least one slicer is filtered through. The visual can spead up the process of search for specific information about, for exmaple, a customer or a product.
+Insights: The additional filtering configuration allows the slicers to work together more effectively. When one slicer is used, the others can display the relevant available values, making it easier to narrow down the data by date, customer, product, or promotion. The table provides a more detailed view of individual records and can help stakeholders investigate specific transactions without manually searching through the entire dataset.
 
 
-#### Question 8: Show sales by different cities.
+#### Question 8: How do sales vary across different cities?
 
-- Step 28: Map visual was used. The data category for the "City" column in "Dim Customer" table was changed to "City". Bubble size was definied by "Sum of Net Sales".
+- Step 28: Created a map visual using the City column from the Dim Customers table. Set the data category of City to City to help Power BI interpret the geographic information correctly. Used the sum of Net Sales New to determine the bubble size, allowing sales values to be compared across cities.
 
 <img width="538" height="288" alt="City" src="https://github.com/user-attachments/assets/51396b5d-2d34-4b12-aa50-dbef62a768fa" />
 
-Insights: the visualisation shows what cities had the highest and lowest sales in an interactive way.
+Insights: The map provides a geographical overview of sales performance and helps identify cities that contribute the most and least to total net sales. This information could support decisions about regional marketing and future sales opportunities.
